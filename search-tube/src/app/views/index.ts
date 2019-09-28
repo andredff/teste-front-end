@@ -1,3 +1,3 @@
-export *  from './components/search/search.component';
+export *  from './home/search/search.component';
 export * from './home/home.component';
-export * from './video/video.component';
+export * from './home/video/video.component';

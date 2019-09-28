@@ -1,0 +1,12 @@
+<div class="search-box" [@search-input]="searchInput">
+    <form [formGroup]="form">
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Pesquisar" formControlName="search" />
+
+        <mat-icon (click)="search()" matSuffix style="cursor: pointer;">search</mat-icon>
+
+      </mat-form-field>
+      <!-- <button mat-flat-button color="primary">Detalhes</button> -->
+
+    </form>
+  </div>

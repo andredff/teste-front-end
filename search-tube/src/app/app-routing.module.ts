@@ -2,9 +2,11 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { HomeComponent } from './views/home/home.component';
+import { DetailsComponent } from './views/home/video/details/details.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
+  { path: 'details/:id', component: DetailsComponent },
 ];
 
 @NgModule({

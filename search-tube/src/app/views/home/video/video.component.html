@@ -1,0 +1,36 @@
+<div class="main-container" id="video-container"  >
+  <div class="video-container"  *ngIf="videos.length > 0">
+    <mat-card class="card" *ngFor="let video of videos">
+      <img mat-card-image [src]="video?.snippet.thumbnails.medium.url" />
+      <mat-card-content>
+        <mat-card-title>
+          <p>{{ video?.snippet.title | slice: 0:50 }}...</p>
+        </mat-card-title>
+
+        <mat-card-title>
+          <p class="subtitle">
+            {{ video?.snippet.channelTitle | slice: 0:100 }}
+          </p>
+        </mat-card-title>
+
+        <mat-card-subtitle>
+          <p>{{ video?.snippet.description | slice: 0:100 }}</p>
+        </mat-card-subtitle>
+      </mat-card-content>
+
+      <mat-card-actions>
+        <a [routerLink]="['/details', video.id.videoId]">
+          <button mat-flat-button color="primary">Detalhes</button>
+        </a>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+  <div *ngIf="videos.length == 0">
+    <p>Nenhum resultado encontrado</p>
+        <p>Use palavras-chave diferentes ou remova os filtros de pesquisa</p>
+    <h1>{{ error }}</h1>
+  </div>
+
+</div>
+
