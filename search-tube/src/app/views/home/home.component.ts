@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -8,6 +8,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 export class HomeComponent implements OnInit {
 
   @ViewChild('videos', {static: false}) public videos: any
+
+  @ViewChild('search', {static: false}) public search: any
 
   constructor() { }
 
@@ -19,6 +21,8 @@ export class HomeComponent implements OnInit {
 
   }
 
-
+  limparPesquisa(){
+    this.videos.limpar();
+  }
 
 }

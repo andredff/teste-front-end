@@ -1,12 +1,12 @@
 <div class="main-container" id="video-container">
-  <div id ="div" #div class="video-container" *ngIf="vid.length > 0">
+  <div id ="div" #div class="video-container" >
     <mat-card
       class="card"
-      *ngFor="let video of vid"
+      *ngFor="let video of videoStorage"
       infiniteScroll
       [infiniteScrollDistance]="3"
       [infiniteScrollThrottle]="1000"
-      [infiniteScrollDisabled]=blockInfiniteScroll
+
       (scrolled)="loadMore()"
     >
       <img mat-card-image [src]="video?.snippet.thumbnails.medium.url" />
@@ -33,13 +33,17 @@
       </mat-card-actions>
     </mat-card>
 
-    <button mat-flat-button color="primary" (click)="loadMore()">
+    <!-- <button mat-flat-button color="primary" (click)="loadMore()">
       load More
     </button>
 
     <button mat-flat-button color="primary" (click)="scrollToTop($event)">
       <i class="material-icons">keyboard_arrow_up</i>
-    </button>
+    </button> -->
+
+    <!-- <button mat-flat-button color="primary" (click)="top()">
+        <i class="material-icons">keyboard_arrow_up</i>
+      </button> -->
 
     <!-- <div *ngIf="vid.length == 0">
     <p>Nenhum resultado encontrado</p>

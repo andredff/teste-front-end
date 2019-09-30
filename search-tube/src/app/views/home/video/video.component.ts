@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { VideoService } from '../../shared/services/video.service';
 
 @Component({
@@ -6,35 +6,56 @@ import { VideoService } from '../../shared/services/video.service';
   templateUrl: './video.component.html',
   styleUrls: ['./video.component.scss']
 })
-export class VideoComponent implements OnInit {
+export class VideoComponent implements OnInit, OnDestroy {
 
-  videos = {};
-  error;
-  term;
-  nextPageToken: string;
+  public videos = {};
 
-  vid: any[] = [];
+  public error: string;
 
-  blockInfiniteScroll;
+  public vid: any[] = [];
+
+  public videoStorage = [];
+
+  public term: string;
+
+  public lastTerm: string;
+
+  public nextPageToken: string;
+
+  public lastToken: string;
+
+  @Output() public inputOnTop: EventEmitter<string> = new EventEmitter<string>();
+
 
   constructor(private videoService: VideoService) { }
 
   ngOnInit() {
     this.getVideos(this.term);
 
+    // localStorage.clear();
+
+    this.videoStorage = JSON.parse(localStorage.getItem('videoStorage'))
+
+    this.lastTerm = localStorage.getItem('term')
+
   }
 
   getVideos(term) {
-    if (term != this.term) {
+
+    this.vid = [];
+    if (term != this.lastTerm) {
       this.vid = [];
+      this.videoStorage = [];
+      this.lastToken = undefined;
     }
-    this.term = term
+    this.lastTerm = term
+    this.lastToken = localStorage.getItem('lastToken');
 
     if (term) {
       setTimeout(() => {
-        this.videoService.getVideos(this.term, this.nextPageToken)
-          .subscribe((videos) => {
 
+        this.videoService.getVideos(this.lastTerm, this.lastToken)
+          .subscribe((videos) => {
             this.videos = videos;
 
             if (videos.nextPageToken) {
@@ -46,7 +67,8 @@ export class VideoComponent implements OnInit {
               this.vid.push(video);
             }
 
-
+            this.videoStorage = this.videoStorage.concat(this.vid)
+            this.setCache();
 
           }, error => {
             console.error(error)
@@ -56,18 +78,34 @@ export class VideoComponent implements OnInit {
     }
   }
 
+
+  limpar(){
+    localStorage.clear();
+    this.videoStorage = [];
+  }
+
+  setCache() {
+
+    localStorage.setItem('videoStorage', JSON.stringify(this.videoStorage));
+    localStorage.setItem('lastToken', this.nextPageToken);
+    localStorage.setItem('term', this.lastTerm);
+  }
+
   loadMore() {
     window.onscroll = (ev) => {
       if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
         console.log('bottom')
-        this.getVideos(this.term);
+        this.getVideos(this.lastTerm);
 
       }
-    }
+    };
   }
 
   scrollToTop(evt) {
     window.scrollTo({ left: 0, top: 0, behavior: 'smooth' });
   }
+
+  ngOnDestroy() {}
+
 
 }

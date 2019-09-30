@@ -12,7 +12,7 @@ export class VideoService {
 
   apiUrl = 'https://www.googleapis.com/youtube/v3';
   apiKey = 'AIzaSyBhWGh2805HNlHGkeqBbTl2kUtuSL6E_Hw';
-  apiKey2 = 'AIzaSyAG7_B-xf_xTPdA8CeYAjNx5CTK8NXmDNA';
+  apiKey2 = 'AIzaSyBtZT5xSi52ztXfkgweapiP10sq7CasrJs';
   videos: any;
   data: any;
   searchField;
@@ -25,7 +25,7 @@ export class VideoService {
 
   getVideos(term, nextPageToken): Observable<ResponseParams> {
 
-    let maxResults = 9;
+    let maxResults = 3;
     if (term != this.searchField) {
       this.searchField = term;
     }
@@ -40,13 +40,10 @@ export class VideoService {
       this.query = `${this.apiUrl}/search?part=id,snippet&type=video&videoEmbeddable=true&q=${term}&maxResults=${maxResults}&key=${this.apiKey2}`;
     }
 
-    this.lastQuery = this.query
 
     return this.http.get<ResponseParams>(this.query)
       .pipe(
         map((response) => {
-
-          console.log('service', response)
           return response;
 
         })

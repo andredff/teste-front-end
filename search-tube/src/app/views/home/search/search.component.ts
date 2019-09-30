@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { VideoService } from '../../shared/services/video.service';
 import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
@@ -15,7 +15,7 @@ import { trigger, state, style, transition, animate, keyframes } from '@angular/
       state('final', style({
         marginTop: '20px',
       })),
-      transition('initial => final', animate('500ms ease-in')),
+      transition('initial <=> final', animate('500ms ease-in')),
 
     ])
   ]
@@ -24,7 +24,10 @@ export class SearchComponent implements OnInit {
 
   @Output() public atualizarVideos: EventEmitter<string> = new EventEmitter<string>();
 
-  public searchInput = 'initial';
+  @Output() public limparPesquisa: EventEmitter<string> = new EventEmitter<string>();
+
+
+  @Input() public searchInput = 'final';
 
   public form: FormGroup = new FormGroup({
     'search': new FormControl(null, Validators.required),
@@ -33,6 +36,8 @@ export class SearchComponent implements OnInit {
   constructor(private videoService: VideoService) { }
 
   ngOnInit() {
+    // console.log(this.state);
+
   }
 
   search(value: string) {
@@ -41,6 +46,11 @@ export class SearchComponent implements OnInit {
       this.atualizarVideos.emit(term);
       this.searchInput = 'final';
     }
+  }
+
+  clear() {
+    this.limparPesquisa.emit('limpando pesquisa');
+    this.searchInput = 'initial';
   }
 
 }
