@@ -15,16 +15,16 @@ export class VideoComponent implements OnInit {
 
   vid: any[] = [];
 
+  blockInfiniteScroll;
+
   constructor(private videoService: VideoService) { }
 
   ngOnInit() {
-    this.atualizarVideos(this.term);
+    this.getVideos(this.term);
 
-    this.scroll();
   }
 
-  atualizarVideos(term) {
-
+  getVideos(term) {
     if (term != this.term) {
       this.vid = [];
     }
@@ -34,6 +34,7 @@ export class VideoComponent implements OnInit {
       setTimeout(() => {
         this.videoService.getVideos(this.term, this.nextPageToken)
           .subscribe((videos) => {
+
             this.videos = videos;
 
             if (videos.nextPageToken) {
@@ -45,6 +46,8 @@ export class VideoComponent implements OnInit {
               this.vid.push(video);
             }
 
+
+
           }, error => {
             console.error(error)
             this.error = 'Erro Aqui'
@@ -54,17 +57,17 @@ export class VideoComponent implements OnInit {
   }
 
   loadMore() {
-    this.atualizarVideos(this.term)
+    window.onscroll = (ev) => {
+      if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
+        console.log('bottom')
+        this.getVideos(this.term);
+
+      }
+    }
   }
 
-
-  scroll() {
-
-    console.log('oi')
+  scrollToTop(evt) {
+    window.scrollTo({ left: 0, top: 0, behavior: 'smooth' });
   }
-
-
-
-
 
 }

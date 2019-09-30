@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
   }
 
   atualizarVideos(term){
-    this.videos.atualizarVideos(term);
+    this.videos.getVideos(term);
 
   }
 

@@ -1,7 +1,7 @@
 import { VideoComponent } from '../video.component';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router'
-import { VideoService } from '../video.service';
+import { VideoService } from '../../../shared/services/video.service';
 import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 
 @Component({
@@ -11,18 +11,21 @@ import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 })
 export class DetailsComponent implements OnInit {
 
-  video;
+  video: {};
   safeSrc: SafeResourceUrl;
 
   constructor(private videoService: VideoService, private route: ActivatedRoute, private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
     this.getVideo()
+
+    console.log(JSON.parse(localStorage.getItem("videoStorage")))
   }
 
   getVideo() {
     this.route.params.subscribe((params: Params) => {
       this.videoService.getVideo(params.id).subscribe((response) => {
+        console.log('details', response);
         this.video = response.items[0];
       })
       const URL = `https://www.youtube.com/embed/${params.id}`;

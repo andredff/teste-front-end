@@ -8,5 +8,5 @@ export class ResponseParams {
       totalResults: number;
       resultsPerPage: number;
   };
-  items: [];
+  items: string[];
 }

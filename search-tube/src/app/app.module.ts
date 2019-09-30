@@ -13,6 +13,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
+
 
 import { HomeComponent, SearchComponent, VideoComponent,  } from './views';
 import { DetailsComponent } from './views/home/video/details/details.component';
@@ -36,8 +38,9 @@ import { VideoService } from './views/shared/services/video.service';
     MatCardModule,
     MatButtonModule,
     HttpClientModule,
-    ReactiveFormsModule,,
-    InfiniteScrollModule
+    ReactiveFormsModule,
+    InfiniteScrollModule,
+    MatDividerModule
   ],
   providers: [VideoService],
   bootstrap: [AppComponent]
