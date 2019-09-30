@@ -3,8 +3,10 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 
-
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
+
 import { AppComponent } from './app.component';
 
 import { MatInputModule } from '@angular/material/input';
@@ -12,13 +14,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 
-
-import { VideoService } from './views/home/video/video.service';
-
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-import { HomeComponent, SearchComponent, VideoComponent } from './views';
+import { HomeComponent, SearchComponent, VideoComponent,  } from './views';
 import { DetailsComponent } from './views/home/video/details/details.component';
+
+import { VideoService } from './views/shared/services/video.service';
 
 @NgModule({
   declarations: [
@@ -37,7 +36,8 @@ import { DetailsComponent } from './views/home/video/details/details.component';
     MatCardModule,
     MatButtonModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,,
+    InfiniteScrollModule
   ],
   providers: [VideoService],
   bootstrap: [AppComponent]

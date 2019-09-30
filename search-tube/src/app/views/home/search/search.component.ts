@@ -1,6 +1,6 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { VideoService } from '../video/video.service';
+import { VideoService } from '../../shared/services/video.service';
 import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
 
 @Component({
