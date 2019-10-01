@@ -12,7 +12,6 @@ export class VideoService {
 
   apiUrl = 'https://www.googleapis.com/youtube/v3';
   apiKey = 'AIzaSyBhWGh2805HNlHGkeqBbTl2kUtuSL6E_Hw';
-  apiKey2 = 'AIzaSyBi56wwF6ujlKQJAPXfcRU6tJgo5a3JTEE';
   videos: any;
   data: any;
   searchField;
@@ -25,7 +24,7 @@ export class VideoService {
 
   getVideos(term, nextPageToken): Observable<ResponseParams> {
 
-    let maxResults = 3;
+    let maxResults = 1;
     if (term != this.searchField) {
       this.searchField = term;
     }
@@ -35,31 +34,27 @@ export class VideoService {
     }
 
     if (nextPageToken) {
-      this.query = `${this.apiUrl}/search?part=id,snippet&type=video&videoEmbeddable=true&pageToken=${nextPageToken}&q=${term}&maxResults=${maxResults}&key=${this.apiKey2}`;
+      this.query = `${this.apiUrl}/search?part=id,snippet&type=video&videoEmbeddable=true&pageToken=${nextPageToken}&q=${term}&maxResults=${maxResults}&key=${this.apiKey}`;
     } else {
       this.query = `${this.apiUrl}/search?part=id,snippet&type=video&videoEmbeddable=true&q=${term}&maxResults=${maxResults}&key=${this.apiKey}`;
     }
-
 
     return this.http.get<ResponseParams>(this.query)
       .pipe(
         map((response) => {
           return response;
-
         })
       );
-
   }
 
-
   getVideo(id): Observable<ResponseParams> {
-    const query = `${this.apiUrl}/videos?id=${id}&part=snippet,statistics,player&key=${this.apiKey2}`;
+    const query = `${this.apiUrl}/videos?id=${id}&part=snippet,statistics,player&key=${this.apiKey}`;
     return this.http.get<ResponseParams>(query)
       .pipe(
         map((response) => {
           return response;
         }),
-        // catchError(this.handleError('getVideo', this.params))
+
       );
   }
 

@@ -1,7 +1,6 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { VideoService } from '../../shared/services/video.service';
-import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-search',
@@ -32,9 +31,10 @@ export class SearchComponent implements OnInit {
     'search': new FormControl(null, Validators.required),
   });
 
-  constructor(private videoService: VideoService) { }
+  constructor() { }
 
   ngOnInit() {
+
 
   }
 
@@ -46,13 +46,9 @@ export class SearchComponent implements OnInit {
     }
   }
 
-  clear() {
-    this.limparPesquisa.emit('limpando pesquisa');
-    this.searchInput = 'initial';
-  }
-
   atualizarEstado(value: string) {
     this.searchInput = value;
+
   }
 
 }

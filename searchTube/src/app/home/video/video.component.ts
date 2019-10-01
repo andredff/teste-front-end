@@ -33,7 +33,6 @@ export class VideoComponent implements OnInit, OnDestroy {
   ngOnInit() {
 
     // localStorage.clear();
-
     this.videoStorage = [];
     this.videoStorage = JSON.parse(localStorage.getItem('videoStorage'));
 
@@ -48,48 +47,47 @@ export class VideoComponent implements OnInit, OnDestroy {
   getVideos(term) {
     this.vid = [];
     if (term != this.lastTerm) {
-      this.vid = [];
-      this.videoStorage = [];
-      this.lastToken = undefined;
+      this.resetTerm();
     }
-    this.lastTerm = term
+    this.lastTerm = term;
     this.lastToken = localStorage.getItem('lastToken');
 
     if (term) {
-      setTimeout(() => {
-        this.videoService.getVideos(this.lastTerm, this.lastToken)
-          .subscribe((videos) => {
-            this.loading = true;
+      this.videoService.getVideos(this.lastTerm, this.lastToken)
+        .subscribe((videos) => {
+          this.loading = true;
 
-            if (videos.pageInfo.totalResults == 0) {
-              this.init = true;
-            } else {
-              this.init = false;
-            }
-
-            this.videos = videos;
-            if (videos.nextPageToken) {
-              this.nextPageToken = videos.nextPageToken;
-            }
-
-            for (let i = 0; i < videos.items.length; i++) {
-              let video = videos.items[i];
-              this.vid.push(video);
-            }
-
-            this.videoStorage = this.videoStorage.concat(this.vid)
-            this.setCache();
-            this.loading = false;
-
-          }, error => {
+          if (videos.pageInfo.totalResults == 0) {
             this.init = true;
-            this.loading = false;
-            localStorage.clear();
-          });
-      }, 1000);
+          } else {
+            this.init = false;
+          }
+
+          this.videos = videos;
+          if (videos.nextPageToken) {
+            this.nextPageToken = videos.nextPageToken;
+          }
+
+          for (let i = 0; i < videos.items.length; i++) {
+            let video = videos.items[i];
+            this.vid.push(video);
+          }
+          this.videoStorage = this.videoStorage.concat(this.vid)
+          this.setCache();
+          this.loading = false;
+        }, error => {
+          this.init = true;
+          this.loading = false;
+          localStorage.clear();
+        });
     }
   }
 
+  resetTerm() {
+    this.vid = [];
+    this.videoStorage = [];
+    this.lastToken = undefined;
+  }
 
   atualizaEstado() {
     this.atualizarEstado.emit('final');
