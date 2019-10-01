@@ -50,3 +50,8 @@
     }
   }
 }
+
+.mat-card-subtitle:not(:first-child), .mat-card-title:not(:first-child) {
+  margin-top: 30px;
+}
+
