@@ -1,9 +1,9 @@
 <div class="search-box" [@search-input]="searchInput">
   <form [formGroup]="form">
     <mat-form-field class="example-full-width">
-      <input matInput placeholder="Pesquisar" formControlName="search" />
+      <input matInput placeholder="Pesquisar" (keyup.enter)="search()" formControlName="search" />
       <mat-icon (click)="search()" matSuffix style="cursor: pointer;">search</mat-icon>
     </mat-form-field>
-    <button mat-stroked-button color="primary" (click)="clear()">limpar pesquisa</button>
+    <!-- <button mat-stroked-button color="primary" (click)="clear()">x</button> -->
   </form>
 </div>

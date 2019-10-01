@@ -12,7 +12,7 @@ export class VideoService {
 
   apiUrl = 'https://www.googleapis.com/youtube/v3';
   apiKey = 'AIzaSyBhWGh2805HNlHGkeqBbTl2kUtuSL6E_Hw';
-  apiKey2 = 'AIzaSyBtZT5xSi52ztXfkgweapiP10sq7CasrJs';
+  apiKey2 = 'AIzaSyBi56wwF6ujlKQJAPXfcRU6tJgo5a3JTEE';
   videos: any;
   data: any;
   searchField;
@@ -37,7 +37,7 @@ export class VideoService {
     if (nextPageToken) {
       this.query = `${this.apiUrl}/search?part=id,snippet&type=video&videoEmbeddable=true&pageToken=${nextPageToken}&q=${term}&maxResults=${maxResults}&key=${this.apiKey2}`;
     } else {
-      this.query = `${this.apiUrl}/search?part=id,snippet&type=video&videoEmbeddable=true&q=${term}&maxResults=${maxResults}&key=${this.apiKey2}`;
+      this.query = `${this.apiUrl}/search?part=id,snippet&type=video&videoEmbeddable=true&q=${term}&maxResults=${maxResults}&key=${this.apiKey}`;
     }
 
 

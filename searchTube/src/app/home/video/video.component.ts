@@ -16,8 +16,6 @@ export class VideoComponent implements OnInit, OnDestroy {
 
   public videoStorage = [];
 
-  public term: string;
-
   public lastTerm: string;
 
   public nextPageToken: string;
@@ -26,29 +24,28 @@ export class VideoComponent implements OnInit, OnDestroy {
 
   public loading: boolean = false;
 
+  public init: boolean = false;
+
   @Output() public atualizarEstado: EventEmitter<string> = new EventEmitter<string>();
 
   constructor(private videoService: VideoService) { }
 
   ngOnInit() {
 
-    this.getVideos(this.term);
-
     // localStorage.clear();
 
+    this.videoStorage = [];
     this.videoStorage = JSON.parse(localStorage.getItem('videoStorage'));
-    if (this.videoStorage) {
+
+    if (this.videoStorage != null) {
       setTimeout(() => {
         this.atualizaEstado();
       }, 10);
     };
-
     this.lastTerm = localStorage.getItem('term');
-
   }
 
   getVideos(term) {
-
     this.vid = [];
     if (term != this.lastTerm) {
       this.vid = [];
@@ -60,13 +57,17 @@ export class VideoComponent implements OnInit, OnDestroy {
 
     if (term) {
       setTimeout(() => {
-
         this.videoService.getVideos(this.lastTerm, this.lastToken)
           .subscribe((videos) => {
             this.loading = true;
 
-            this.videos = videos;
+            if (videos.pageInfo.totalResults == 0) {
+              this.init = true;
+            } else {
+              this.init = false;
+            }
 
+            this.videos = videos;
             if (videos.nextPageToken) {
               this.nextPageToken = videos.nextPageToken;
             }
@@ -81,9 +82,9 @@ export class VideoComponent implements OnInit, OnDestroy {
             this.loading = false;
 
           }, error => {
-            console.error(error)
-            this.error = 'Erro Aqui';
+            this.init = true;
             this.loading = false;
+            localStorage.clear();
           });
       }, 1000);
     }
@@ -97,6 +98,7 @@ export class VideoComponent implements OnInit, OnDestroy {
   clearCache() {
     localStorage.clear();
     this.videoStorage = [];
+    this.init = false;
   }
 
   setCache() {
@@ -108,9 +110,7 @@ export class VideoComponent implements OnInit, OnDestroy {
   loadMore() {
     window.onscroll = (ev) => {
       if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
-        console.log('bottom')
         this.getVideos(this.lastTerm);
-
       }
     };
   }

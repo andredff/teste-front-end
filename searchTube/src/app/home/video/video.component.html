@@ -1,5 +1,9 @@
 <div class="main-container" id="video-container">
-  <div id="div" #div class="video-container">
+  <div
+    id="div"
+    class="video-container"
+
+  >
     <mat-card
       class="card"
       *ngFor="let video of videoStorage"
@@ -35,3 +39,8 @@
 </div>
 
 <app-loading *ngIf="loading"></app-loading>
+
+  <div class="error" *ngIf="init">
+    <h3>Nenhum resultado encontrado</h3>
+    <h3>Use palavras-chave diferentes ou remova os filtros de pesquisa</h3>
+  </div>
