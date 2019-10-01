@@ -34,7 +34,10 @@ export class VideoComponent implements OnInit, OnDestroy {
 
     // localStorage.clear();
     this.videoStorage = [];
-    this.videoStorage = JSON.parse(localStorage.getItem('videoStorage'));
+
+    setTimeout(() => {
+      this.videoStorage = JSON.parse(localStorage.getItem('videoStorage'));
+    }, 1000);
 
     if (this.videoStorage != null) {
       setTimeout(() => {

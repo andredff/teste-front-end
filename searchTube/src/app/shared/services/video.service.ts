@@ -33,29 +33,33 @@ export class VideoService {
       this.nextToken = nextPageToken;
     }
 
+    this.query = `/search?part=id,snippet&type=video&videoEmbeddable=true&q=${term}&maxResults=${maxResults}&key=${this.apiKey}`;
     if (nextPageToken) {
-      this.query = `${this.apiUrl}/search?part=id,snippet&type=video&videoEmbeddable=true&pageToken=${nextPageToken}&q=${term}&maxResults=${maxResults}&key=${this.apiKey}`;
-    } else {
-      this.query = `${this.apiUrl}/search?part=id,snippet&type=video&videoEmbeddable=true&q=${term}&maxResults=${maxResults}&key=${this.apiKey}`;
+      this.query = this.query + `&pageToken=${nextPageToken}`
     }
 
-    return this.http.get<ResponseParams>(this.query)
+    return this.http.get<ResponseParams>(this.apiUrl + this.query)
       .pipe(
         map((response) => {
           return response;
         })
-      );
+      )
   }
 
   getVideo(id): Observable<ResponseParams> {
-    const query = `${this.apiUrl}/videos?id=${id}&part=snippet,statistics,player&key=${this.apiKey}`;
-    return this.http.get<ResponseParams>(query)
+    const query = `/videos?id=${id}&part=snippet,statistics,player&key=${this.apiKey}`;
+    return this.http.get<ResponseParams>(this.apiUrl + query)
       .pipe(
         map((response) => {
           return response;
         }),
 
       );
+  }
+
+  private handleError(error: Response) {
+    console.error(error);
+    return Observable.throw(error.json().error || 'Server error');
   }
 
 }
