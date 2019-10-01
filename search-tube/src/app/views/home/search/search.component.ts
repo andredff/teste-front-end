@@ -26,8 +26,7 @@ export class SearchComponent implements OnInit {
 
   @Output() public limparPesquisa: EventEmitter<string> = new EventEmitter<string>();
 
-
-  @Input() public searchInput = 'final';
+  @Input() public searchInput = 'initial';
 
   public form: FormGroup = new FormGroup({
     'search': new FormControl(null, Validators.required),
@@ -36,7 +35,6 @@ export class SearchComponent implements OnInit {
   constructor(private videoService: VideoService) { }
 
   ngOnInit() {
-    // console.log(this.state);
 
   }
 
@@ -51,6 +49,10 @@ export class SearchComponent implements OnInit {
   clear() {
     this.limparPesquisa.emit('limpando pesquisa');
     this.searchInput = 'initial';
+  }
+
+  atualizarEstado(value: string) {
+    this.searchInput = value;
   }
 
 }

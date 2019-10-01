@@ -2,11 +2,8 @@
     <form [formGroup]="form">
       <mat-form-field class="example-full-width">
         <input matInput placeholder="Pesquisar" formControlName="search" />
-
         <mat-icon (click)="search()" matSuffix style="cursor: pointer;">search</mat-icon>
-
       </mat-form-field>
-      <button mat-flat-button color="primary" (click)="clear()">clear</button>
-
+      <button mat-stroked-button color="primary" (click)="clear()">limpar pesquisa</button>
     </form>
   </div>

@@ -7,9 +7,9 @@ import { Component, OnInit, ViewChild, Input } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  @ViewChild('videos', {static: false}) public videos: any
+  @ViewChild('videos', {static: false}) public videos: any;
 
-  @ViewChild('search', {static: false}) public search: any
+  @ViewChild('search', {static: false}) public search: any;
 
   constructor() { }
 
@@ -18,11 +18,14 @@ export class HomeComponent implements OnInit {
 
   atualizarVideos(term){
     this.videos.getVideos(term);
-
   }
 
-  limparPesquisa(){
-    this.videos.limpar();
+  clear(){
+    this.videos.clearCache();
+  }
+
+  atualizarEstado(value) {
+    this.search.atualizarEstado(value)
   }
 
 }

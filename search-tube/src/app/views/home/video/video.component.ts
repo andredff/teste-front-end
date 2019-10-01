@@ -24,19 +24,28 @@ export class VideoComponent implements OnInit, OnDestroy {
 
   public lastToken: string;
 
-  @Output() public inputOnTop: EventEmitter<string> = new EventEmitter<string>();
+  public loading: boolean = false;
 
+  @Output() public atualizarEstado: EventEmitter<string> = new EventEmitter<string>();
 
   constructor(private videoService: VideoService) { }
 
   ngOnInit() {
+
     this.getVideos(this.term);
 
     // localStorage.clear();
 
-    this.videoStorage = JSON.parse(localStorage.getItem('videoStorage'))
+    this.videoStorage = JSON.parse(localStorage.getItem('videoStorage'));
+    if (this.videoStorage) {
+      setTimeout(() => {
+        this.atualizaEstado();
+      }, 10);
+    };
 
-    this.lastTerm = localStorage.getItem('term')
+    this.lastTerm = localStorage.getItem('term');
+
+
 
   }
 
@@ -56,6 +65,8 @@ export class VideoComponent implements OnInit, OnDestroy {
 
         this.videoService.getVideos(this.lastTerm, this.lastToken)
           .subscribe((videos) => {
+            this.loading = true;
+
             this.videos = videos;
 
             if (videos.nextPageToken) {
@@ -69,23 +80,28 @@ export class VideoComponent implements OnInit, OnDestroy {
 
             this.videoStorage = this.videoStorage.concat(this.vid)
             this.setCache();
+            this.loading = false;
 
           }, error => {
             console.error(error)
-            this.error = 'Erro Aqui'
+            this.error = 'Erro Aqui';
+            this.loading = false;
           });
       }, 1000);
     }
   }
 
 
-  limpar(){
+  atualizaEstado() {
+    this.atualizarEstado.emit('final');
+  }
+
+  clearCache() {
     localStorage.clear();
     this.videoStorage = [];
   }
 
   setCache() {
-
     localStorage.setItem('videoStorage', JSON.stringify(this.videoStorage));
     localStorage.setItem('lastToken', this.nextPageToken);
     localStorage.setItem('term', this.lastTerm);
@@ -105,7 +121,7 @@ export class VideoComponent implements OnInit, OnDestroy {
     window.scrollTo({ left: 0, top: 0, behavior: 'smooth' });
   }
 
-  ngOnDestroy() {}
+  ngOnDestroy() { }
 
 
 }

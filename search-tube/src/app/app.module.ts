@@ -14,10 +14,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 import { HomeComponent, SearchComponent, VideoComponent,  } from './views';
 import { DetailsComponent } from './views/home/video/details/details.component';
+import { LoadingComponent } from './views/shared/components/loading.component';
 
 import { VideoService } from './views/shared/services/video.service';
 
@@ -28,6 +30,7 @@ import { VideoService } from './views/shared/services/video.service';
     SearchComponent,
     VideoComponent,
     DetailsComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +43,8 @@ import { VideoService } from './views/shared/services/video.service';
     HttpClientModule,
     ReactiveFormsModule,
     InfiniteScrollModule,
-    MatDividerModule
+    MatDividerModule,
+    MatProgressSpinnerModule
   ],
   providers: [VideoService],
   bootstrap: [AppComponent]
