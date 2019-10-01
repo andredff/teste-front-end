@@ -1,27 +1,17 @@
 # SearchTube
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.3.
+Aplicação desenvolvida em Angular 8
+Desenvolvimento de um SPA para manipulação da API do youtube.
 
-## Development server
+### O que preciso ter para rodar o projeto?
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+- Necessário ter instalado o [Node.js](https://nodejs.org/en/)
+- Vá até a pasta do projeto (em 'searchTube') e instale os módulos do npm com `npm install`
 
-## Code scaffolding
+## Rodando a aplicação
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- Dentro da pasta do projeto inicie a aplicação com `ng serve` e navegue até `http://localhost:4200/`
+- Build da aplicação com `npm build --prod`
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+## Especificações 
+Cada componente está separado em suas respectivas pastas com arquivos HTML, SASS e TS;

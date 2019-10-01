@@ -24,7 +24,7 @@ export class VideoService {
 
   getVideos(term, nextPageToken): Observable<ResponseParams> {
 
-    let maxResults = 1;
+    let maxResults = 6;
     if (term != this.searchField) {
       this.searchField = term;
     }
