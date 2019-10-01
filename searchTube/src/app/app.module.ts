@@ -21,7 +21,7 @@ import { HomeComponent, SearchComponent, VideoComponent,  } from './home';
 import { DetailsComponent } from './home/video/details/details.component';
 import { LoadingComponent } from './shared/components/loading/loading.component';
 
-import { VideoService } from './shared/video.service';
+import { VideoService } from './shared/services/video.service';
 
 @NgModule({
   declarations: [

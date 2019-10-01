@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap, map } from 'rxjs/operators'
 
-import { ResponseParams } from '../shared/interfaces/ResponseParams.model';
+import { ResponseParams } from '../interfaces/ResponseParams.model';
 
 @Injectable({
   providedIn: 'root'
