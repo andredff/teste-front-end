@@ -1,13 +1,27 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
+
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
-import { SearchComponent } from './home/search/search.component';
-import { VideoComponent } from './home/video/video.component';
+
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
+
+import { HomeComponent, SearchComponent, VideoComponent,  } from './home';
 import { DetailsComponent } from './home/video/details/details.component';
 import { LoadingComponent } from './shared/components/loading/loading.component';
+
+import { VideoService } from './shared/video.service';
 
 @NgModule({
   declarations: [
@@ -20,9 +34,19 @@ import { LoadingComponent } from './shared/components/loading/loading.component'
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatInputModule,
+    MatIconModule,
+    BrowserAnimationsModule,
+    MatCardModule,
+    MatButtonModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    InfiniteScrollModule,
+    MatDividerModule,
+    MatProgressSpinnerModule
   ],
-  providers: [],
+  providers: [VideoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
