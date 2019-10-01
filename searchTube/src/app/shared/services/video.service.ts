@@ -1,4 +1,3 @@
-import { VideoModel } from './../interfaces/Video.model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -53,9 +52,9 @@ export class VideoService {
   }
 
 
-  getVideo(id): Observable<VideoModel> {
+  getVideo(id): Observable<ResponseParams> {
     const query = `${this.apiUrl}/videos?id=${id}&part=snippet,statistics,player&key=${this.apiKey2}`;
-    return this.http.get<VideoModel>(query)
+    return this.http.get<ResponseParams>(query)
       .pipe(
         map((response) => {
           return response;
