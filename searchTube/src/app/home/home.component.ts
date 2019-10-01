@@ -26,7 +26,6 @@ export class HomeComponent implements OnInit {
 
   atualizarEstado(value) {
     this.search.atualizarEstado(value)
-    console.log(value)
   }
 
 }
